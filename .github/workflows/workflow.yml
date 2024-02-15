@@ -30,33 +30,17 @@ jobs:
           bundler-cache: true
       - run: |
           JEKYLL_FATAL_LINK_CHECKER=internal bundle exec jekyll build --future
-              
-      # - name: Checkout
-      #   uses: actions/checkout@v3
-      # 
-      # - name: Install Ruby
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: 2.7 # Not needed with a .ruby-version file
-      #     bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      # 
-      # - name: Install Bundles
-      #   run: bundle install
-      # 
-      # 
-      # - name: Build Website
-      #   run: bundle exec rake build
-      # 
-      # - name: Deploy Website to live via SFTP
-      #   uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-      #   with:
-      #     username: ${{ secrets.SFTP_USERNAME }}
-      #     server: ${{ secrets.SFTP_SERVER }}
-      #     local_path: '_site/*'
-      #     remote_path: '/var/www/eoed-docs.eliatra.com/html/'
-      #     sftp_only: true
-      #     ssh_private_key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
-      #     sftpArgs: -C
+
+      - name: Deploy Website to live via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_SERVER }}
+          local_path: '_site/*'
+          remote_path: '/var/www/eoed-docs.eliatra.com/html/'
+          sftp_only: true
+          ssh_private_key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
+          sftpArgs: -C
       # 
       # 
       # - name: Decache Cloudflare
