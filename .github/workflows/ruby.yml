@@ -7,10 +7,7 @@
 
 name: Publish Website
 
-on:
-  push:
-    paths:
-      - '.github/workflows/ruby.yaml'      
+on: workflow_dispatch
 
 jobs:
   deploy:
@@ -21,7 +18,7 @@ jobs:
         # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
         ruby: [2.7]
     runs-on: ${{ matrix.os }}
-    env:
+  
 
     steps:
       - name: Checkout
