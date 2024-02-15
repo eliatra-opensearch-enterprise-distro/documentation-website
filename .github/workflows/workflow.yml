@@ -35,18 +35,12 @@ jobs:
       - name: Install Bundles
         run: bundle install
 
-      - name: Fetch Content
-        env:
-          CONTENTFUL_ELIATRA_WEBSITE_SPACE_ID: ${{ secrets.CONTENTFUL_ELIATRA_WEBSITE_SPACE_ID }}
-          CONTENTFUL_ELIATRA_WEBSITE_API_KEY: ${{ secrets.CONTENTFUL_ELIATRA_WEBSITE_API_KEY }}
-        run: bundle exec rake fetch
 
       - name: Build Website
         run: bundle exec rake build
 
       - name: Deploy Website to live via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        if: env.SFTP_ENABLED == 'true'
         with:
           username: ${{ secrets.SFTP_USERNAME }}
           server: ${{ secrets.SFTP_SERVER }}
@@ -56,16 +50,6 @@ jobs:
           ssh_private_key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
           sftpArgs: -C
 
-      - name: Deploy Website to live
-        uses: burnett01/rsync-deployments@5.2
-        if: env.RSYNC_ENABLED == 'true'
-        with:
-          switches: -vr --progress
-          path: _site/
-          remote_path: /home/www/public/
-          remote_host: 49.12.64.62
-          remote_user: ${{ secrets.ELIATRA_WEBSITE_DEPLOY_USER }}
-          remote_key: ${{ secrets.ELIATRA_WEBSITE_DEPLOY_KEY }}
       
       - name: Decache Cloudflare
         env:
