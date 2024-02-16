@@ -29,7 +29,7 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
       - run: |
-          JEKYLL_FATAL_LINK_CHECKER=internal bundle exec jekyll build --future
+          bundle exec jekyll build --future
 
       - name: Deploy Website to live via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
