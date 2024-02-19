@@ -59,7 +59,7 @@ jobs:
   #         sftpArgs: -C
 
   post_deploy:
-    needs: deploy
+    # needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Purge Cloudflare Cache
