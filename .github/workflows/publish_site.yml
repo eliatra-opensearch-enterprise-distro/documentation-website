@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     # - 2.11.x-ee
-  # pull_request:
+  pull_request:
 
 env:
   WEBSITE_URL: 'eoed-docs.eliatra.com' 
