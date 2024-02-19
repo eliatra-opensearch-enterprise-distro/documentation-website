@@ -20,16 +20,20 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3      
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ needs.setup.outputs.ruby-version }}
           bundler-cache: true
+      - name: Update _config.yml
+        run: |
+          sed -i 's|url:.*|url: "https://eoed-docs.eliatra.com"|' _config.yml          
       - run: bundle exec jekyll build --future
       - uses: actions/upload-artifact@v3
         with:
           name: site-artifacts
           path: _site
+          retention-days: 7
 
   deploy:
     needs: build
