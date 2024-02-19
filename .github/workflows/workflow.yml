@@ -63,10 +63,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Purge Cloudflare Cache
-        run: |
+        run: | 
           STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X POST "https://api.cloudflare.com/client/v4/zones/$ELIATRA_CLOUDFLARE_ZONEID/purge_cache" \
-            -H "Authorization: Bearer $ELIATRA_CLOUDFLARE_DECACHE_TOKEN" \
+            -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.ELIATRA_CLOUDFLARE_ZONEID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.ELIATRA_CLOUDFLARE_DECACHE_TOKEN }}" \
             -H "Content-Type: application/json" \
             --data '{"purge_everything":true}')
           if [ "$STATUS_CODE" -ne 200 ]; then
