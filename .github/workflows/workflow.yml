@@ -16,7 +16,7 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-  deploy:
+  build:
     needs: setup
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +26,19 @@ jobs:
           ruby-version: ${{ needs.setup.outputs.ruby-version }}
           bundler-cache: true
       - run: bundle exec jekyll build --future
+      - uses: actions/upload-artifact@v3
+        with:
+          name: site-artifacts
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: site-artifacts
+          path: _site
       - name: Deploy Website to live via SFTP
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
@@ -37,7 +50,7 @@ jobs:
           ssh_private_key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
           sftpArgs: -C
 
-  decache:
+  post_deploy:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
