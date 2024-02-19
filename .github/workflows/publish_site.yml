@@ -1,0 +1,77 @@
+name: Publish Website eoed-docs.eliatra.com
+
+on: 
+  workflow_dispatch:
+  push:
+
+env:
+  WEBSITE_URL: 'https://eoed-docs.eliatra.com' 
+
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      ruby-version: '3.2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4    
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ needs.setup.outputs.ruby-version }}
+          bundler-cache: true
+      - name: Update _config.yml
+        run: |
+          sed -i '/^url:/c\url: "{{ env.WEBSITE_URL }}"' _config.yml        
+      - run: bundle exec jekyll build --future
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-artifacts
+          path: _site
+          retention-days: 7
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site-artifacts
+          path: _site
+      - name: Deploy Website to live via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_SERVER }}
+          local_path: '_site/*'
+          remote_path: '/var/www/{{ env.WEBSITE_URL }}/html/'
+          sftp_only: true
+          ssh_private_key: ${{ secrets.SFTP_SSH_PRIVATE_KEY }}
+          sftpArgs: -C
+
+  post_deploy:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Cloudflare Cache
+        run: | 
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.ELIATRA_CLOUDFLARE_ZONEID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.ELIATRA_CLOUDFLARE_DECACHE_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+          if [ "$STATUS_CODE" -ne 200 ]; then
+            echo "Cloudflare API call failed with status $STATUS_CODE"
+            exit 1
+          else
+            echo "Cloudflare cache purged successfully"
+          fi
