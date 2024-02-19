@@ -27,7 +27,7 @@ jobs:
           bundler-cache: true
       - name: Update _config.yml
         run: |
-          sed -i 's|url:.*|url: "https://eoed-docs.eliatra.com"|' _config.yml          
+          sed -i '/^url:/c\url: "https://eoed-docs.eliatra.com"' _config.yml        
       - run: bundle exec jekyll build --future
       - uses: actions/upload-artifact@v3
         with:
