@@ -1,4 +1,4 @@
-name: Publish Website eoed-docs.eliatra.com
+name: Publish Website test-eoed-docs.eliatra.com
 
 on: 
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 env:
-  WEBSITE_URL: 'eoed-docs.eliatra.com' 
+  WEBSITE_URL: 'test-eoed-docs.eliatra.com' 
 
 jobs:
   setup:
@@ -61,7 +61,7 @@ jobs:
           sudo apt install lftp -y
           lftp --version
           echo "Start SFTP upload"
-          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no'; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/; quit" sftp://${{ secrets.SFTP_SERVER }}
+          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no'; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/; quit" sftp://52.30.226.239
           
   post_deploy:
     needs: deploy
