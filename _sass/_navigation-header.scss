@@ -470,7 +470,7 @@ $max-container: 1440px;
                                                 outline: 0;
                                             }
                                             &:focus + .top-banner-search--field-with-results--field--wrapper--search-component--search-label .top-banner-search--field-with-results--field--wrapper--search-component--search-icon {
-                                                color: #0055A6;
+                                                color: green;
                                             }
                                         }
                                         > .top-banner-search--field-with-results--field--wrapper--search-component--search-spinner {
@@ -584,9 +584,9 @@ $max-container: 1440px;
                                                     line-height: 1.6;
                                                     font-weight: bold;
                                                     background: linear-gradient(rgb(238, 235, 238) 0%, rgb(238, 235, 238) 100%) repeat-x 0 100%/1px 1px;
-                                                    color: #0055a6;
+                                                    color: green;
                                                     font-size: 20px;
-                                                    text-decoration: #0055a6;
+                                                    text-decoration: green;
                                                     white-space: unset;
                                                     display: inline;
                                                     &:hover {

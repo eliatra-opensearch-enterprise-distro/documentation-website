@@ -26,7 +26,7 @@ const tpl = `
     #root {
         text-decoration: none;
         color: #FFFFFF;
-        background-color: #00509c;
+        background-color: #005000;
         background-image: var(--normal-bg);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
         border-radius: 4px;
