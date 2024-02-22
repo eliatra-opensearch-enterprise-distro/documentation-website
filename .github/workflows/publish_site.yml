@@ -3,7 +3,7 @@ name: Publish Website eoed-docs.eliatra.com
 on: 
   workflow_dispatch:
   push:
-    - 2.11.x-ee
+    # - 2.11.x-ee
   pull_request:
 
 env:
@@ -64,7 +64,7 @@ jobs:
           sudo apt install lftp -y
           lftp --version
           echo "Start SFTP upload"
-          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.WEBSITE_URL }}/html/${{ env.WEBSITE_VERSION }}; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/${{ env.WEBSITE_VERSION }}/; quit" sftp://52.30.226.239
+          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.WEBSITE_URL }}/html/${{ env.WEBSITE_VERSION }}; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/${{ env.WEBSITE_VERSION }}/; quit" sftp://${{ secrets.SFTP_SERVER }}
           
   post_deploy:
     needs: deploy
