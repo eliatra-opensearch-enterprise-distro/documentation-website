@@ -36,7 +36,7 @@ jobs:
         name: Update _config.yml
         run: |
           sed -i '/^url:/c\url: "https://${{ env.WEBSITE_URL }}"' _config.yml
-          WEBSITE_VERSION=$(cat _config.yml|grep "^opensearch_major_minor_version:"|cut -d ':' -f2| tr -d '[:blank:]')
+          WEBSITE_VERSION=$(cat _config.yml | grep "^opensearch_major_minor_version:" | cut -d ':' -f2 | tr -d " '")
           echo "version=$WEBSITE_VERSION" >> $GITHUB_OUTPUT
           sed -i '/^baseurl:/c\baseurl: "/docs/'"$WEBSITE_VERSION"'"' _config.yml 
           cat _config.yml|grep -e "^url:" -e "^baseurl:"
