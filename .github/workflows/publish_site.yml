@@ -8,7 +8,6 @@ on:
 
 env:
   WEBSITE_URL: 'eoed-docs.eliatra.com' 
-  WEBSITE_VERSION: 'latest' 
 
 jobs:
   setup:
@@ -25,16 +24,21 @@ jobs:
   build:
     needs: setup
     runs-on: ubuntu-latest
+    outputs:
+      version:  ${{ steps.config.outputs.version }}    
     steps:
       - uses: actions/checkout@v4    
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ needs.setup.outputs.ruby-version }}
           bundler-cache: true
-      - name: Update _config.yml
+      - id: config
+        name: Update _config.yml
         run: |
-          sed -i '/^url:/c\url: "https://${{ env.WEBSITE_URL }}"' _config.yml 
-          sed -i '/^baseurl:/c\baseurl: "/docs/${{ env.WEBSITE_VERSION }}"' _config.yml 
+          sed -i '/^url:/c\url: "https://${{ env.WEBSITE_URL }}"' _config.yml
+          WEBSITE_VERSION=$(cat _config.yml|grep "^opensearch_major_minor_version:"|cut -d ':' -f2| tr -d '[:blank:]')
+          echo "version=$WEBSITE_VERSION" >> $GITHUB_OUTPUT
+          sed -i '/^baseurl:/c\baseurl: "/docs/'"$WEBSITE_VERSION"'"' _config.yml 
           cat _config.yml|grep -e "^url:" -e "^baseurl:"
       - run:  JEKYLL_FATAL_LINK_CHECKER=internal bundle exec jekyll build --future
       - uses: actions/upload-artifact@v4
@@ -63,8 +67,13 @@ jobs:
         run: |
           sudo apt install lftp -y
           lftp --version
-          echo "Start SFTP upload"
-          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.WEBSITE_URL }}/html/${{ env.WEBSITE_VERSION }}; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/${{ env.WEBSITE_VERSION }}/; quit" sftp://${{ secrets.SFTP_SERVER }}
+          WEBSITE_VERSION=${{ needs.build.outputs.version }}
+          if [ -z "$WEBSITE_VERSION" ]; then
+            echo "WEBSITE_VERSION is empty"
+            exit 1
+          fi
+          echo "Start SFTP upload version: $WEBSITE_VERSION"
+          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.WEBSITE_URL }}/html/$WEBSITE_VERSION; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/$WEBSITE_VERSION/; quit" sftp://${{ secrets.SFTP_SERVER }}
           
   post_deploy:
     needs: deploy
