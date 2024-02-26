@@ -40,7 +40,7 @@ jobs:
           echo "version=$WEBSITE_VERSION" >> $GITHUB_OUTPUT
           sed -i '/^baseurl:/c\baseurl: "/docs/'"$WEBSITE_VERSION"'"' _config.yml 
           cat _config.yml|grep -e "^url:" -e "^baseurl:"
-      - run:  JEKYLL_FATAL_LINK_CHECKER=internal bundle exec jekyll build --future
+      - run:  JEKYLL_FATAL_LINK_CHECKER=internal JEKYLL_ENV=production  bundle exec jekyll build --future
       - uses: actions/upload-artifact@v4
         with:
           name: site-artifacts
