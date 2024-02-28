@@ -1,9 +1,11 @@
 @mixin gradient-open-sky {
-    background: linear-gradient(180deg, #e1fff3 0%, #98f4dc 48.15%, #00e05d 100%);
+    //background: linear-gradient(180deg, #e1fff3 0%, #98f4dc 48.15%, #00e05d 100%);
+    background: #00796B;
 }
 
 @mixin gradient-deep-blue-sea {
-    background: linear-gradient(180deg, #0fa701 0%, #012d20 97.92%);
+    //background: linear-gradient(180deg, #0fa701 0%, #012d20 97.92%);
+    background: #00796B;
 }
 
 @mixin thick-edge-left {
@@ -16,7 +18,7 @@
 
 .main-content-wrap-home {
     width: 100%;
-    background-color: $grey-lt-000;
+    background-color: #e0f2f1;
     padding: 3rem 4rem;
   }
 

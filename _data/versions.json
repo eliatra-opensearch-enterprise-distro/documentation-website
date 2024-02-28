@@ -1,13 +1,13 @@
 {
-  "current": "2.11-ee1",
+  "current": "2.11-ee",
   "all": [
-    "2.11-ee1",
-    "1.3-ee1"
+    "2.11-ee",
+    "1.3-ee"
   ],
   "archived": [
 
     ],
-  "latest": "2.11-ee1"
+  "latest": "2.11-ee"
 }
 
 
