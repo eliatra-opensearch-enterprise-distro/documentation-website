@@ -1,5 +1,5 @@
 const contributeButton = document.getElementById('contribute');
 
 contributeButton.addEventListener('click', function(event) {
-    window.open('https://github.com/opensearch-project', '_blank');
+    window.open('/docs/latest/about/', '_blank');
 });
