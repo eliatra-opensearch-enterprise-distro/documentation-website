@@ -4,7 +4,7 @@ items:
     fragments:
       - downloads
       - versions
-    url: /downloads.html
+    url: https://eliatra.com/opensearch-enterprise-distro/
   -
     label: About
     url: /about.html
@@ -16,7 +16,7 @@ items:
     children:
       -
        label: Releases
-       url: /releases.html
+       url: https://eliatra.com/opensearch-enterprise-distro/
       -
        label: Roadmap
        url: https://github.com/orgs/opensearch-project/projects/1
@@ -26,37 +26,20 @@ items:
   -
     label: Community
     fragments:
-      - events
-      - community_projects
       - blog
       - partners
-      - slack
     children:
       -
         label: Blog
-        url: /blog
+        url: https://eliatra.com/blog/
       -
         label: Forum
-        url: https://forum.opensearch.org/
-      -
-        label: Slack
-        url: /slack.html
-      -
-        label: Events
-        url: /events
+        url: https://forum.eliatra.com
       -
         label: Partners
-        url: /partners
-      -
-        label: Projects
-        url: /community_projects
+        url: https://eliatra.com/company/
   -
     label: Documentation
-    fragments: 
-    - docs
-    - opensearch
-    - data-prepper
-    - clients
     url: /docs/latest/
     children:
       -
@@ -64,21 +47,4 @@ items:
         url: /docs/latest/about/
   -
     label: Platform
-    url: /platform/index.html
-    fragments: 
-      - platform
-      - search
-      - observability
-      - security-analytics
-      - vector-database
-    children:
-      - label: Search
-        url: /platform/search/index.html
-      - label: Observability
-        url: /platform/observability/index.html
-      -
-        label: Security Analytics
-        url: /platform/security-analytics/index.html
-      -
-        label: Vector Database
-        url: /platform/search/vector-database.html
+    url: https://opensearch.org/platform/index.html

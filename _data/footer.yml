@@ -13,7 +13,7 @@ columns:
     links:
       - 
         title: About
-        url: '/about.html'
+        url: 'https://eliatra.com/company/'
       - 
         title: Release Schedule
         url: '/releases.html'
@@ -28,4 +28,4 @@ columns:
     links:
       -
         title: 'Connect'
-        url: '/connect.html'
+        url: 'https://eliatra.com/contact/'

@@ -86,14 +86,14 @@ nav#site-nav > .nav-list:nth-of-type(1) {
   ol {
     > li {
       &:before {
-        color: $grey-dk-100;
+        color: #e0f2f1;
       }
     }
   }
   ul {
     > li {
       &:before {
-        color: $grey-dk-100;
+        color: #e0f2f1;
       }
     }
   }
@@ -1034,7 +1034,8 @@ body {
 }
 
 @mixin gradient-deep-blue-sea {
-  background: linear-gradient(180deg, #01a76d 0%, #013a1a 97.92%);
+  //background: linear-gradient(180deg, #01a76d 0%, #013a1a 97.92%);
+  background: #311B92;
 }
 
 @mixin header-level3($color: $primary-open-sky-s1) {
