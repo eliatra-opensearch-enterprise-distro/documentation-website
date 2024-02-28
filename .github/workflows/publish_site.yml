@@ -3,7 +3,7 @@ name: Publish Website eoed-docs.eliatra.com
 on: 
   workflow_dispatch:
   push:
-    # - 2.11.x-ee
+    - 2.11.x-ee
   pull_request:
 
 env:
