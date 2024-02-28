@@ -157,7 +157,7 @@ class VersionSelector extends HTMLElement {
 
         frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}`;
 
-        const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+)\/?)?)?/, '');
+        const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+(-ee)?)\/?)?)?/, '');
         const versionsDOMNodes = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${v === DOC_VERSION_LATEST ? ' class="latest"' : ''}>${PREFIX}${v}</a>`);
         if (Array.isArray(DOC_VERSIONS_ARCHIVED) && DOC_VERSIONS_ARCHIVED.length) {
             versionsDOMNodes.push(
