@@ -1,4 +1,4 @@
-name: Publish Website eoed-docs.eliatra.com
+name: Publish Website
 
 on: 
   workflow_dispatch:
@@ -8,7 +8,9 @@ on:
   pull_request:
 
 env:
-  WEBSITE_URL: 'eoed-docs.eliatra.com' 
+  WEBSITE_URL: 'eliatra.com' 
+  UPLOAD_DIR: 'eod'
+  
 
 jobs:
   setup:
@@ -74,7 +76,8 @@ jobs:
             exit 1
           fi
           echo "Start SFTP upload version: $WEBSITE_VERSION"
-          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.WEBSITE_URL }}/html/$WEBSITE_VERSION; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.WEBSITE_URL }}/html/$WEBSITE_VERSION/; quit" sftp://${{ secrets.SFTP_SERVER }}
+          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.UPLOAD_DIR }}/html/$WEBSITE_VERSION; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.UPLOAD_DIR }}/html/$WEBSITE_VERSION/; quit" sftp://${{ secrets.SFTP_SERVER }}
+
           
   post_deploy:
     needs: deploy
