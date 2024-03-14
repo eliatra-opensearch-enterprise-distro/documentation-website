@@ -4,25 +4,25 @@ items:
     fragments:
       - downloads
       - versions
-    url: https://eliatra.com/opensearch-enterprise-distro/
-  -
-    label: About
-    url: /about.html
-    fragments:
-      - about
-      - releases
-      - roadmap
-      - faq
-    children:
-      -
-       label: Releases
-       url: https://eliatra.com/opensearch-enterprise-distro/
-      -
-       label: Roadmap
-       url: https://github.com/orgs/opensearch-project/projects/1
-      -
-       label: FAQ
-       url: /faq
+    url: https://eliatra.com/downloads/
+  # -
+  #   label: About
+  #   url: /about.html
+  #   fragments:
+  #     - about
+  #     - releases
+  #     - roadmap
+  #     - faq
+  #   children:
+  #     -
+  #      label: Releases
+  #      url: https://eliatra.com/opensearch-enterprise-distro/
+  #     -
+  #      label: Roadmap
+  #      url: https://github.com/orgs/opensearch-project/projects/1
+  #     -
+  #      label: FAQ
+  #      url: /faq
   -
     label: Community
     fragments:
