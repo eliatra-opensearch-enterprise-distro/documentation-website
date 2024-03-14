@@ -14,15 +14,15 @@ columns:
       - 
         title: About
         url: 'https://eliatra.com/company/'
-      - 
-        title: Release Schedule
-        url: '/releases.html'
-      - 
-        title: Maintenance Policy
-        url: '/releases.html#maintenance-policy'
+      #- 
+      #  title: Release Schedule
+      #  url: '/releases.html'
+      #- 
+      #  title: Maintenance Policy
+      #  url: '/releases.html#maintenance-policy'
       - 
         title: FAQ
-        url: '/faq/'
+        url: 'https://forum.eliatra.com/tag/faq'
   -
     title: 'Contact Us'
     links:
