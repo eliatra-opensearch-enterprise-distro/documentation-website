@@ -76,7 +76,7 @@ jobs:
             exit 1
           fi
           echo "Start SFTP upload version: $WEBSITE_VERSION"
-          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.UPLOAD_DIR }}/html/$WEBSITE_VERSION; mirror  --reverse --parallel=20 --verbose _site/ /var/www/${{ env.UPLOAD_DIR }}/html/$WEBSITE_VERSION/; quit" sftp://${{ secrets.SFTP_SERVER }}
+          lftp -u ${{ secrets.SFTP_USERNAME }}, -e "set sftp:connect-program 'ssh -a -x  -o StrictHostKeyChecking=no';  mkdir -p /var/www/${{ env.UPLOAD_DIR }}/html/$WEBSITE_VERSION; mirror  --reverse --delete --parallel=20 --verbose _site/ /var/www/${{ env.UPLOAD_DIR }}/html/$WEBSITE_VERSION/; quit" sftp://${{ secrets.SFTP_SERVER }}
 
           
   post_deploy:
